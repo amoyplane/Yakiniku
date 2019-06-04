@@ -5,7 +5,7 @@ from django.shortcuts import HttpResponseRedirect
 import os
 
 from django.conf import settings
-import yakimain as yaki
+from . import yakimain as yaki
 
 
 def runmain(name):
