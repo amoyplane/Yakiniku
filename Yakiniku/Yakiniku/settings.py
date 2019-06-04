@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+UPLOAD_ROOT = os.path.join(BASE_DIR, 'upload')
+RESULT_ROOT = os.path.join(BASE_DIR, 'result')
 
 # Application definition
 
@@ -54,7 +56,7 @@ ROOT_URLCONF = 'Yakiniku.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'Templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

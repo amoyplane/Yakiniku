@@ -15,7 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import url
+from django.views.static import serve
+from django.conf import settings
+
+from App import view
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # path('admin/', admin.site.urls),
+    url(r'^upload.html$', view.upload),
+    url(r'^show.html$', view.show),
+    url(r'^upload/(?P<path>.*)', serve, {'document_root': settings.UPLOAD_ROOT}),
+    url(r'^result/(?P<path>.*)', serve, {'document_root': settings.RESULT_ROOT}),
+    # url(r'^$', view.hello),
 ]
