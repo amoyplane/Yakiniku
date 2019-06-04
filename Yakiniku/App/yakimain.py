@@ -1,6 +1,6 @@
-import quickstart as qs
-import drawline as draw
-import embeded as emb
+from . import quickstart as qs
+from . import drawline as draw
+from . import embeded as emb
 import sys
 
 

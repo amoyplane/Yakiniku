@@ -1,5 +1,5 @@
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
-import infostruct as ifs
+from . import infostruct as ifs
 
 rotateWords = '`·~!@#$%^…&*()（）-=[]【】\\;\'‘’「」\"“”『』.,/_—+{}|:”<>《》?0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ '
 

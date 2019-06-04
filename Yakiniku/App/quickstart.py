@@ -28,9 +28,9 @@ from google.cloud import vision
 from google.cloud.vision import types
 # [END vision_python_migration_import]
 
-import translate as trans
-import drawline as draw
-import infostruct as ifs
+from . import translate as trans
+from . import drawline as draw
+from . import infostruct as ifs
 
 
 def sizefilter(vertices, v):
