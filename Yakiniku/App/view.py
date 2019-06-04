@@ -4,6 +4,15 @@ from django.shortcuts import HttpResponse
 from django.shortcuts import HttpResponseRedirect
 import os
 
+from django.conf import settings
+import yakimain as yaki
+
+
+def runmain(name):
+    print('Processing ...' + name)
+    print(settings.UPLOAD_ROOT)
+    print(settings.RESULT_ROOT)
+
 
 def upload(request):
     if request.method == 'GET':
@@ -16,6 +25,8 @@ def upload(request):
         for line in obj.chunks():
             f.write(line)
         f.close()
+
+        runmain(obj.name)
 
         request.session['picname'] = obj.name
 
