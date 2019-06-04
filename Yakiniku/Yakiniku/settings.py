@@ -29,6 +29,7 @@ ALLOWED_HOSTS = ['*']
 
 UPLOAD_ROOT = os.path.join(BASE_DIR, 'upload')
 RESULT_ROOT = os.path.join(BASE_DIR, 'result')
+FONTS_ROOT = os.path.join(BASE_DIR, 'Fonts')
 
 # Application definition
 

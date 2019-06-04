@@ -1,5 +1,6 @@
 from PIL import Image, ImageDraw, ImageFont, ImageFilter
 from . import infostruct as ifs
+from django.conf import settings
 
 rotateWords = '`·~!@#$%^…&*()（）-=[]【】\\;\'‘’「」\"“”『』.,/_—+{}|:”<>《》?0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ '
 
@@ -108,7 +109,7 @@ def DrawPoly(image, text, points, direction, fontName, fontColor='#000000', bold
 
 def Embeded(file, outname, infos):
     image = Image.open(file)
-    fontName = 'simhei.ttf'
+    fontName = settings.FONTS_ROOT + '/simhei.ttf'
     for item in infos:
         if (item.enable != 1):
             continue
