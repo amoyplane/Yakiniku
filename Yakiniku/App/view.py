@@ -9,9 +9,10 @@ from . import yakimain as yaki
 
 
 def runmain(name):
-    print('Processing ...' + name)
+    print('Processing ' + name + ' ... ')
     print(settings.UPLOAD_ROOT)
     print(settings.RESULT_ROOT)
+    ret = yaki.doall(settings.UPLOAD_ROOT + '/' + name, settings.RESULT_ROOT + '/s_' + name, settings.RESULT_ROOT + '/' + name)
 
 
 def upload(request):
