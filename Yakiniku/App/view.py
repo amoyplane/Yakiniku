@@ -13,6 +13,7 @@ def runmain(name):
     print(settings.UPLOAD_ROOT)
     print(settings.RESULT_ROOT)
     ret = yaki.doall(settings.UPLOAD_ROOT + '/' + name, settings.RESULT_ROOT + '/s_' + name, settings.RESULT_ROOT + '/' + name)
+    return ret
 
 
 def upload(request):
@@ -27,8 +28,9 @@ def upload(request):
             f.write(line)
         f.close()
 
-        runmain(obj.name)
+        ret = runmain(obj.name)
 
+        request.session['infos'] = ret
         request.session['picname'] = obj.name
 
         return HttpResponseRedirect('show.html')
@@ -38,8 +40,9 @@ def upload(request):
 
 def show(request):
     picname = request.session.get('picname')
+    infos = request.session.get('infos')
     print(picname)
     if request.method == 'GET':
-        return render(request, 'show.html', {'images': picname})
+        return render(request, 'show.html', {'images': picname, 'infos': infos})
         # return render(request, 'show.html')
     # return HttpResponse(picname)

@@ -2,13 +2,50 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Title</title>
+    <title>YakinikuMan</title>
+
+<style>
+        .box-block {
+            display: table-row;
+            background-color: #66CCFF;
+        }
+        .box1 {
+        	float: left;
+        	display: table-cell;
+        	padding: 10px;
+            background-color: #66CCFF;
+            width: 500px;
+        }
+        .box2 {
+
+        	float: left;
+			display: table-cell;
+            word-wrap: break-word;
+            text-align: center;
+            padding: 10px;        	
+            background-color: #66CCFF;
+            width: 400px;
+        }
+    </style>
 </head>
 <body>
+<div class = "box-block">
+<div class = "box1" id = "imgshow">
+	<img src="result/{{ images }}" width="500"/>
+</div>
 
+<div class = "box2" id="content" >
 
-	<img src="result/{{ images }}" />
+{% for info in infos %}
 
+<p> {{ info.text }} </p>
+<p> {{ info.trans }} </p>
+<br>
+
+{% endfor %}
+
+</div>
+</div>
 
 </body>
 </html>
