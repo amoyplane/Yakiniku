@@ -36,13 +36,17 @@
 
 <div class = "box2" id="content" >
 
+<form>
 {% for info in infos %}
 
 <p align="left"> {{ info.text }} </p>
 <p align="left"> {{ info.trans }} </p>
+<input type="text" name="trans" value= {{ info.trans }} > </p>
+
 <br>
 
 {% endfor %}
+</form>
 
 </div>
 </div>
