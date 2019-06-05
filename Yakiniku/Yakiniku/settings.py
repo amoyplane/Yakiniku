@@ -31,6 +31,8 @@ UPLOAD_ROOT = os.path.join(BASE_DIR, 'upload')
 RESULT_ROOT = os.path.join(BASE_DIR, 'result')
 FONTS_ROOT = os.path.join(BASE_DIR, 'Fonts')
 
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
+
 # Application definition
 
 INSTALLED_APPS = [
