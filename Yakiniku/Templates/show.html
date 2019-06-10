@@ -34,30 +34,8 @@
     </style>
 
     <script>
-    var rects = new Array();
 
-{% for info in infos %}
-    var x1 = 100000;
-    var y1 = 100000;
-    var x2 = 0;
-    var y2 = 0;
-    {% for point in info.vertexs %}
-    if({{point.0}} < x1) x1 = {{point.0}};
-    if({{point.1}} < y1) y1 = {{point.1}};
-    if({{point.0}} > x2) x2 = {{point.0}};
-    if({{point.1}} > y2) y2 = {{point.1}};
-    {% endfor %}
 
-    var rect = {
-        x1 : x1,
-        y1 : y1,
-        x2 : x2,
-        y2 : y2,
-    };
-    rects.push(rect);
-    console.log(rect);
-
-{% endfor %}
 
     window.onload = resize;
     function resize(){
@@ -99,6 +77,16 @@
         {
             loaded = true;
             render_image();
+{% for info in infos %}
+            var slidewidth = document.getElementById("slidewidth{{ info.id }}");
+            var slideheight = document.getElementById("slideheight{{ info.id }}");
+            var slidex = document.getElementById("slidex{{ info.id }}");
+            var slidey = document.getElementById("slidey{{ info.id }}");
+            slidewidth.max = img.naturalWidth;
+            slideheight.max = img.naturalHeight;
+            slidex.max = img.naturalWidth;
+            slidey.max = img.naturalHeight;
+{% endfor %}
         }
         function render_image()
         {
@@ -114,19 +102,21 @@
             };
             // 以图画底
             ctx.drawImage(img, 0, 0, cWidth, cHeight);
+            ctx.strokeStyle = "red";
 
-            
-
-            for(var i = 0; i < rects.length; i++)
-            {
-                ctx.strokeStyle = "red";
-                ctx.strokeRect(
-                    rects[i].x1 * zoom.width,
-                    rects[i].y1 * zoom.height,
-                    (rects[i].x2 - rects[i].x1) * zoom.width,
-                    (rects[i].y2 - rects[i].y1) * zoom.height
+{% for info in infos %}
+            var slidewidth = document.getElementById("slidewidth{{ info.id }}");
+            var slideheight = document.getElementById("slideheight{{ info.id }}");
+            var slidex = document.getElementById("slidex{{ info.id }}");
+            var slidey = document.getElementById("slidey{{ info.id }}");
+            ctx.strokeRect(
+                    (slidex.value - parseInt(slidewidth.value / 2)) * zoom.width,
+                    (slidey.value - parseInt(slideheight.value / 2)) * zoom.height,
+                    slidewidth.value * zoom.width,
+                    slideheight.value * zoom.height
                 );
-            }
+{% endfor %}
+
         }
         // 动手
         img.src = "result/{{ images }}";
@@ -135,7 +125,7 @@
 
 <div class = "box2" id="content" >
 
-<form action="/show.html" method="POST" enctype="multipart/form-data">
+<form id="form" action="/show.html" method="POST" enctype="multipart/form-data">
 {% csrf_token %}
 {% for info in infos %}
 <p align="left"><input type="checkbox" name= "enable" value="{{ info.id }}" {% if info.enable == 1 %}checked="checked"{% endif %}>显示</p>
@@ -143,19 +133,44 @@
 <p align="left"> 机翻： {{ info.trans }} </p>
 <p align="left">
 译文： <input align="left" type="text" size="20" name="trans{{ info.id }}" value= {{ info.trans }} > </p>
-<p align="left">
-缩放： <input type="range" name="slide{{ info.id }}" id = "slide{{ info.id }}" value="0" min="-50" max="50" onchange="slide('slides{{ info.id }}',this.value)"><p id = "slides{{ info.id }}"> 0</p>
-</p>
+
+<p align="left">宽度： <input type="range" name="slidewidth{{ info.id }}" id = "slidewidth{{ info.id }}" min="0" max="5000" onchange="render_image()"></p>
+<p align="left">高度： <input type="range" name="slideheight{{ info.id }}" id = "slideheight{{ info.id }}" min="0" max="5000" onchange="render_image()"></p>
+<p align="left">水平位置： <input type="range" name="slidex{{ info.id }}" id = "slidex{{ info.id }}" min="0" max="5000" onchange="render_image()"></p>
+<p align="left">垂直位置： <input type="range" name="slidey{{ info.id }}" id = "slidey{{ info.id }}" min="0" max="5000" onchange="render_image()"></p>
 <p align="left"><input type="checkbox" name="bold{{ info.id }}" {% if info.bold %}checked="checked"{% endif %}>加粗</p>
-
 <br>
-
 <script>
+    var x1 = 100000;
+    var y1 = 100000;
+    var x2 = 0;
+    var y2 = 0;
+    {% for point in info.vertexs %}
+    if({{point.0}} < x1) x1 = {{point.0}};
+    if({{point.1}} < y1) y1 = {{point.1}};
+    if({{point.0}} > x2) x2 = {{point.0}};
+    if({{point.1}} > y2) y2 = {{point.1}};
+    {% endfor %}
 
+    var slidewidth = document.getElementById("slidewidth{{ info.id }}");
+    var slideheight = document.getElementById("slideheight{{ info.id }}");
+    var slidex = document.getElementById("slidex{{ info.id }}");
+    var slidey = document.getElementById("slidey{{ info.id }}");
+    slidewidth.defaultValue = slidewidth.value = x2 - x1;
+    slideheight.defaultValue = slideheight.value = y2 - y1;
+    slidex.defaultValue = slidex.value = x1 + parseInt((x2 - x1) / 2);
+    slidey.defaultValue = slidey.value = y1 + parseInt((y2 - y1) / 2);
 </script>
 {% endfor %}
-<input type="submit" name="Button" value="提交"/>
- <input type="reset" name="Reset" value="重填"/>
+<input type="submit" name="Button" value="生成"/>
+<input id="resetbtn" type="button" name="Reset" onclick="callreset()" value="重填"/>
+<script>
+    function callreset()
+    {
+        document.getElementById("form").reset();
+        render_image();
+    }
+</script>
 </form>
 
 </div>
@@ -163,29 +178,23 @@
 <script>
     resize();
 </script>
-<script>
-    function slide(str,v){
-        var tar = document.getElementById(str);
-        tar.innerHTML = v;
-    }
-</script>
 <script type="text/javascript">
-function get(ts){
-    ts.style.display = 'block';  //显示图片
-    var left = document.getElementById('imgshow');
-    var right = document.getElementById('content');
-    if (left.offsetHeight >= right.offsetHeight){
-    	//right.style.height = left.offsetHeight+'px';
-    } else {
-        if (left.offsetHeight < 400)
-        {
-            left.style.height =  '400px';
-            right.style.height =  '400px';
+    function get(ts){
+        ts.style.display = 'block';  //显示图片
+        var left = document.getElementById('imgshow');
+        var right = document.getElementById('content');
+        if (left.offsetHeight >= right.offsetHeight){
+        	//right.style.height = left.offsetHeight+'px';
         } else {
-           	right.style.height =  left.offsetHeight+'px';
+            if (left.offsetHeight < 400)
+            {
+                left.style.height =  '400px';
+                right.style.height =  '400px';
+            } else {
+               	right.style.height =  left.offsetHeight+'px';
+            }
         }
     }
-}
 </script>
 </body>
 </html>
