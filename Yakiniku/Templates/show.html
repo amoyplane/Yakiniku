@@ -34,10 +34,10 @@
     </style>
 
     <script>
-    window.onload = resize();
+    window.onload = resize;
     function resize(){
-        var w = document.documentElement.clientWidth;
-        var h = document.documentElement.clientHeight;
+        var w = document.body.clientWidth ;
+        var h = document.body.clientHeight ;
         if (w < 700) {
             w = 700;
         }
