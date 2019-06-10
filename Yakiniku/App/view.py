@@ -58,7 +58,7 @@ def show(request):
             key = "trans" + str(info.id)
             info.trans = concat[key]
             key = "bold" + str(info.id)
-            if (concat[key] == "checked"):
+            if (concat.getlist(key) != None):
                 info.bold = True
             else:
                 info.bold = False
