@@ -68,8 +68,8 @@
 <form action="/show.html" method="POST" enctype="multipart/form-data">
 {% csrf_token %}
 {% for info in infos %}
-
-<p align="left"><input type="checkbox" name= {{ "en" + info.id }} value="enable">显示</p>
+{ a = str(info.id) + "enable" }
+<p align="left"><input type="checkbox" name= {{ a }} value="enable">显示</p>
 <p align="left"> 原文： {{ info.text }} </p>
 <p align="left"> 机翻： {{ info.trans }} </p>
 <p align="left">
@@ -77,6 +77,10 @@
 </p>
 
 <br>
+
+<script>
+
+</script>
 
 {% endfor %}
 <input type="submit" name="Button" value="提交"/>
