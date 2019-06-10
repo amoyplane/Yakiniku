@@ -73,7 +73,7 @@
 <p align="left"> 机翻： {{ info.trans }} </p>
 <p align="left">
 译文： <input align="left" type="text" size="20" name="trans{{ info.id }}" value= {{ info.trans }} > </p>
-</p>
+<p align="left"><input type="checkbox" name="bold{{ info.id }}" {% if info.bold == 1 %}checked="checked"{% endif %}>加粗</p>
 
 <br>
 

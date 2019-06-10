@@ -5,13 +5,14 @@ class Point:
 
 
 class Info:
-    def __init__(self, points=[], direction=1, text='', trans='', id=0):
+    def __init__(self, points=[], direction=1, text='', trans='', id=0, bold=False):
         self.vertexs = points
         self.direct = direction
         self.text = text
         self.trans = trans
         self.id = id
         self.enable = 1
+        self.bold = bold
 
     def showInfo(self):
         print('Info id = ', end=' ')
@@ -23,6 +24,7 @@ class Info:
         print(self.direct)
         print(self.text)
         print(self.trans)
+        print(self.bold)
 
     def expand(self, num):
         self.vertexs[0][0] = self.vertexs[0][0] - num

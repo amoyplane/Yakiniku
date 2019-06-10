@@ -116,7 +116,7 @@ def Embeded(file, outname, infos):
         points = []
         for po in item.vertexs:
             points.append((po[0], po[1]))
-        DrawPoly(image=image, text=item.trans, points=points, direction=item.direct, fontName=fontName)
+        DrawPoly(image=image, text=item.trans, points=points, direction=item.direct, fontName=fontName, bold=item.bold)
     image.save(outname)
 
 
