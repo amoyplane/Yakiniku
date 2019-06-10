@@ -1,0 +1,24 @@
+<div id="container">
+
+<div id = "left"> test </div>
+<div id = "right">
+<script type="text/javascript">
+for(i=0;i<10;i++){
+	document.write(i+'<br>');
+}
+</script>
+</div>
+
+
+</div>
+
+<script type="text/javascript">
+
+var left = document.getElementById('left');
+var right = document.getElementById('right');
+if (left.offsetHeight >= right.offsetHeight){
+	right.style.height = left.offsetHeight+'px';
+} else {
+	left.style.height =  right.offsetHeight+'px';
+}
+</script>

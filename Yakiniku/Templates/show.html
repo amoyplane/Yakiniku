@@ -7,6 +7,7 @@
 <style>
         .box-block {
             display: table-row;
+            height: 100%;
             background-color: #66CCFF;
         }
         .box1 {
@@ -48,7 +49,7 @@
 
 {% endfor %}
 <input type="submit" name="Button" value="提交"/>
- <input type="reset" name="Reset" value="重填“/>
+ <input type="reset" name="Reset" value="重填"/>
 </form>
 
 </div>
@@ -56,3 +57,14 @@
 
 </body>
 </html>
+
+<script type="text/javascript">
+
+var left = document.getElementById('imgshow');
+var right = document.getElementById('content');
+if (left.offsetHeight >= right.offsetHeight){
+	//right.style.height = left.offsetHeight+'px';
+} else {
+	right.style.height =  left.offsetHeight+'px';
+}
+</script>
