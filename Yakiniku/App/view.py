@@ -60,8 +60,8 @@ def show(request):
             key = "bold" + str(info.id)
             if (concat[key] == "checked"):
                 info.bold = True
-            else
-            info.bold = False
+            else:
+                info.bold = False
         request.session['infos'] = infos
         yaki.renew(infos, settings.UPLOAD_ROOT + '/' + picname, settings.RESULT_ROOT + '/s_' + picname, settings.RESULT_ROOT + '/' + picname)
 
