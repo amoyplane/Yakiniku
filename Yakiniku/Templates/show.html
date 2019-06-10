@@ -16,7 +16,7 @@
         	float: left;
         	display: inline;
         	padding: 10px;
-            background-color: #66CCFF;
+            background-color: #77CCFF;
             
            
         }
@@ -28,7 +28,7 @@
             word-wrap: break-word;
             text-align: center;
             padding: 10px;        	
-            background-color: #66CCFF;
+            background-color: #88CCFF;
 
         }
     </style>
@@ -43,7 +43,7 @@
         var box = document.getElementById('box');
         box.style.width =  w + 'px';
         var lw = w / 3;
-        var rw = w - lw - 50;
+        var rw = w - lw - 100;
         //var txt ="窗口大小: 宽度=" + w + ", 高度=" + h;
         //document.getElementById("demo").innerHTML=txt;
         var left = document.getElementById('imgshow');
@@ -56,7 +56,7 @@
 <body onresize="resize()">
 <div class = "box-block" id = "box">
 <div class = "box1" id = "imgshow">
-	<img src="result/{{ images }}" id = "pic" onload="get(this)" width="100%"/>
+	<img src="result/{{ images }}" id = "pic" width="100%"/>
 </div>
 
 <div class = "box2" id="content" >
