@@ -8,7 +8,7 @@
         .box-block {
             
 
-            background-color: #66CCFF;
+            background-color: #000000;
         }
         .box1 {
             overflow-y: auto;
@@ -16,7 +16,7 @@
         	float: left;
         	display: inline;
         	padding: 10px;
-            background-color: #77CCFF;
+            background-color: #888888;
             
            
         }
@@ -42,6 +42,7 @@
         }
         var box = document.getElementById('box');
         box.style.width =  w + 'px';
+        box.style.height = h + 'px';
         var lw = w / 3;
         var rw = w - lw - 100;
         //var txt ="窗口大小: 宽度=" + w + ", 高度=" + h;
@@ -50,6 +51,8 @@
         var right = document.getElementById('content');
         left.style.width =  lw + 'px';
         right.style.width = rw + 'px';
+        left.style.height = h - 20 + 'px';
+        left.style.height = h - 20 + 'px';
     }
     </script>
 </head>
