@@ -42,7 +42,9 @@
 <input type="checkbox" name="enable" value="enable">显示
 <p align="left"> 原文： {{ info.text }} </p>
 <p align="left"> 机翻： {{ info.trans }} </p>
+<p align="left">
 译文： <input align="left" type="text" size="20" name="trans" value= {{ info.trans }} > </p>
+</p>
 
 <br>
 
@@ -62,7 +64,13 @@ function get(ts){
     if (left.offsetHeight >= right.offsetHeight){
     	//right.style.height = left.offsetHeight+'px';
     } else {
-    	right.style.height =  left.offsetHeight+'px';
+        if (left.offsetHeight < 400)
+        {
+            left.style.height =  '400px';
+            right.style.height =  '400px';
+        } else {
+           	right.style.height =  left.offsetHeight+'px';
+        }
     }
 }
 </script>
