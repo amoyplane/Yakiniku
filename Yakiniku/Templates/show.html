@@ -68,7 +68,7 @@
 <form action="/show.html" method="POST" enctype="multipart/form-data">
 {% csrf_token %}
 {% for info in infos %}
-{ a = str(info.id) + "enable" }
+{% a = str(info.id) + "enable" %}
 <p align="left"><input type="checkbox" name= {{ a }} value="enable">显示</p>
 <p align="left"> 原文： {{ info.text }} </p>
 <p align="left"> 机翻： {{ info.trans }} </p>
