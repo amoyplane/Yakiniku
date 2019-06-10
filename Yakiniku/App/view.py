@@ -59,7 +59,7 @@ def show(request):
             info.trans = concat[key]
             key = "bold" + str(info.id)
             print(concat.getlist(key))
-            if (concat.getlist(key)):
+            if len(concat.getlist(key)):
                 info.bold = False
                 print("f")
             else:
