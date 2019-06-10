@@ -17,7 +17,7 @@
             width: 500px;
         }
         .box2 {
-
+        	overflow: auto;
         	float: left;
 			display: table-cell;
             word-wrap: break-word;
@@ -39,7 +39,7 @@
 <form>
 {% for info in infos %}
 
-<input type="radio" name="enable" value="enable">显示
+<input type="checkbox" name="enable" value="enable">显示
 <p align="left"> {{ info.text }} </p>
 <p align="left"> {{ info.trans }} </p>
 <input align="left" type="text" size="20" name="trans" value= {{ info.trans }} > </p>
