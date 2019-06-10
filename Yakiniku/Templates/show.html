@@ -40,9 +40,9 @@
 {% for info in infos %}
 
 <input type="checkbox" name="enable" value="enable">显示
-<p align="left"> {{ info.text }} </p>
-<p align="left"> {{ info.trans }} </p>
-<input align="left" type="text" size="20" name="trans" value= {{ info.trans }} > </p>
+<p align="left"> 原文： {{ info.text }} </p>
+<p align="left"> 机翻： {{ info.trans }} </p>
+译文： <input align="left" type="text" size="20" name="trans" value= {{ info.trans }} > </p>
 
 <br>
 
