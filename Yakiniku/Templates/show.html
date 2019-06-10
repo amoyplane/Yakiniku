@@ -31,7 +31,7 @@
 <body>
 <div class = "box-block">
 <div class = "box1" id = "imgshow">
-	<img src="result/{{ images }}" width="500"/>
+	<img src="result/{{ images }}" onload="get(this)" width="500"/>
 </div>
 
 <div class = "box2" id="content" >
@@ -55,13 +55,15 @@
 </div>
 
 <script type="text/javascript">
-
-var left = document.getElementById('imgshow');
-var right = document.getElementById('content');
-if (left.offsetHeight >= right.offsetHeight){
-	//right.style.height = left.offsetHeight+'px';
-} else {
-	right.style.height =  left.offsetHeight+'px';
+function get(ts){
+    ts.style.display = 'block';  //显示图片
+    var left = document.getElementById('imgshow');
+    var right = document.getElementById('content');
+    if (left.offsetHeight >= right.offsetHeight){
+    	//right.style.height = left.offsetHeight+'px';
+    } else {
+    	right.style.height =  left.offsetHeight+'px';
+    }
 }
 </script>
 </body>
