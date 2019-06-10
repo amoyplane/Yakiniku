@@ -8,7 +8,7 @@
         .box-block {
             
 
-            background-color: #000000;
+            background-color: #222222;
         }
         .box1 {
             overflow-y: auto;
@@ -69,7 +69,7 @@
 {% csrf_token %}
 {% for info in infos %}
 
-<p align="left"><input type="checkbox" name="enable" value="enable">显示</p>
+<p align="left"><input type="checkbox" name= {{ "en" + info.id }} value="enable">显示</p>
 <p align="left"> 原文： {{ info.text }} </p>
 <p align="left"> 机翻： {{ info.trans }} </p>
 <p align="left">
