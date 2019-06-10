@@ -58,10 +58,13 @@ def show(request):
             key = "trans" + str(info.id)
             info.trans = concat[key]
             key = "bold" + str(info.id)
+            print(concat.getlist(key))
             if (concat.getlist(key)):
                 info.bold = False
+                print("f")
             else:
                 info.bold = True
+                print("t")
         request.session['infos'] = infos
         yaki.renew(infos, settings.UPLOAD_ROOT + '/' + picname, settings.RESULT_ROOT + '/s_' + picname, settings.RESULT_ROOT + '/' + picname)
 
