@@ -7,9 +7,7 @@
 <style>
         .box-block {
             display: table-row;
-            min-width: 700px;
-            width: expression(document.body.clientWidth < 700? "700px": "100%" );
-            width:100%;
+
             background-color: #66CCFF;
         }
         .box1 {
@@ -20,9 +18,7 @@
         	padding: 10px;
             background-color: #66CCFF;
             
-            min-width: 300px;
-            width: expression(document.body.clientWidth < 300? "300px": "100%" );
-            width:100%;            
+           
         }
         .box2 {
         	overflow-y: auto;
@@ -33,13 +29,29 @@
             text-align: center;
             padding: 10px;        	
             background-color: #66CCFF;
-            min-width: 400px;
-            width: expression(document.body.clientWidth < 400? "400px": "100%" );
-            width:100%;
+
         }
     </style>
+
+    <script>
+    function resize(){
+        var w = window.outerWidth;
+        var h = window.outerHeight;
+        if (w < 700) {
+            w = 700;
+        }
+        var lw = w / 3;
+        var rw = w - lw;
+        //var txt ="窗口大小: 宽度=" + w + ", 高度=" + h;
+        //document.getElementById("demo").innerHTML=txt;
+        var left = document.getElementById('imgshow');
+        var right = document.getElementById('content');
+        left.style.width =  lw + 'px';
+        right.style.width = rw + 'px';
+    }
+    </script>
 </head>
-<body>
+<body onresize="resize()">
 <div class = "box-block">
 <div class = "box1" id = "imgshow">
 	<img src="result/{{ images }}" onload="get(this)" width="500"/>
