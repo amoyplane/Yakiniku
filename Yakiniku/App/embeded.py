@@ -124,18 +124,33 @@ if __name__ == '__main__':
     infos = []
 
     bound = [[405, 103], [405, 278], [285, 278], [285, 103]]
-    text = '暑假已经快要结束了……'
+    text = "もう夏休みも終わっちゃうけど…"
+    trans = '暑假已经快要结束了……'
     info = ifs.Info(bound, 1, text, text)
     infos.append(info)
 
     bound = [[1010, 575], [1010, 732], [1091, 732], [1091, 575]]
-    text = '脚本似乎还能做得完？'
+    text = "脚本完成できそう？"
+    trans = '脚本似乎还能做得完？'
     info = ifs.Info(bound, 1, text, text)
     infos.append(info)
 
     bound = [[1254, 1352], [1254, 1487], [1180, 1487], [1180, 1352]]
-    text = '要做些什么……'
+    text = "何とかする……"
+    trans = '要做些什么……'
     info = ifs.Info(bound, 1, text, text)
+    infos.append(info)
+
+    bound = [[899, 1433], [899, 1616], [836, 1616], [836, 1433]]
+    text = "明日家行ってもいい？"
+    trans = '明天我可以去你家吗？'
+    info = ifs.Info(bound, 1, text, text)
+    infos.append(info)
+
+    bound = [[1345, 399], [1345, 1917], [1297, 1917], [1297, 399]]
+    text = "生徒会劇を、より面白いものに……そう決めて興奮するこよみだったけれど……？"
+    trans = '让学生会的节目更加有趣——下定决心的历开始兴奋起来但……？'
+    info = ifs.Info(bound, 0, text, text)
     infos.append(info)
 
     Embeded('t.png', 't_out.png', infos)
