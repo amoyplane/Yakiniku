@@ -74,7 +74,7 @@
 <p align="left">
 译文： <input align="left" type="text" size="20" name="trans{{ info.id }}" value= {{ info.trans }} > </p>
 <p align="left">
-缩放： <input type="range" name="slide{{ info.id }}" value="0" min="-100" max="100">
+缩放： <input type="range" name="slide{{ info.id }}" id = "slide{{ info.id }}" value="0" min="-50" max="50" onchange="slide('slides{{ info.id }}',this.value)"><p id = "slides{{ info.id }}"> 0</p>
 </p>
 <p align="left"><input type="checkbox" name="bold{{ info.id }}" {% if info.bold %}checked="checked"{% endif %}>加粗</p>
 
@@ -92,6 +92,12 @@
 </div>
 <script>
     resize();
+</script>
+<script>
+    function slide(str,v){
+        var tar = document.getElementById(str);
+        tar.innerHTML = v;
+    }
 </script>
 <script type="text/javascript">
 function get(ts){
