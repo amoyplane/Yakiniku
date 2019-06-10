@@ -39,7 +39,8 @@
 
 <div class = "box2" id="content" >
 
-<form>
+<form action="/show.html" method="POST" enctype="multipart/form-data">
+{% csrf_token %}
 {% for info in infos %}
 
 <p align="left"><input type="checkbox" name="enable" value="enable">显示</p>

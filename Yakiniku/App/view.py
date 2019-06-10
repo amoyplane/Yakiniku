@@ -44,5 +44,9 @@ def show(request):
     print(picname)
     if request.method == 'GET':
         return render(request, 'show.html', {'images': picname, 'infos': infos})
+    elif request.method == 'POST':
+        concat = request.POST
+        print(concat)
+        return render(request, 'show.html', {'images': picname, 'infos': infos})
         # return render(request, 'show.html')
     # return HttpResponse(picname)
