@@ -10,7 +10,6 @@ def doall(infile, showfile, outfile):
     # file_name='/root/pic/t3.jpg'
     file_name = infile
     # os.system("export GOOGLE_APPLICATION_CREDENTIALS=\"/root/mykey.json\"")
-    
     rst = []
 
     bound = [[405, 103], [405, 278], [285, 278], [285, 103]]
@@ -48,7 +47,6 @@ def doall(infile, showfile, outfile):
     trans = '让学生会的节目更加有趣——下定决心的历开始兴奋起来但……？'
     info = ifs.Info(bound, 1, text, trans, 5, True)
     rst.append(info)
-    
     #rst = qs.run_quickstart(file_name)
     #qs.drawShow(file_name, showfile, rst)
 

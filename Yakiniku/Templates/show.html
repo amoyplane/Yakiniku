@@ -4,23 +4,23 @@
     <meta charset="utf-8">
     <title>YakinikuMan</title>
 
-<style>
-        .box-block {
-            
-
+    <style>
+        .box-block
+        {
             background-color: #222222;
         }
-        .box1 {
+        .box1
+        {
             overflow-y: auto;
             overflow-x: hidden;            
         	float: left;
         	display: inline;
-        	padding: 10px;
             background-color: #888888;
             
            
         }
-        .box2 {
+        .box2
+        {
         	overflow-y: auto;
             overflow-x: hidden;
         	float: left;
@@ -34,6 +34,31 @@
     </style>
 
     <script>
+    var rects = new Array();
+
+{% for info in infos %}
+    var x1 = 100000;
+    var y1 = 100000;
+    var x2 = 0;
+    var y2 = 0;
+    {% for point in info.vertexs %}
+    if({{point.0}} < x1) x1 = {{point.0}};
+    if({{point.1}} < y1) y1 = {{point.1}};
+    if({{point.0}} > x2) x2 = {{point.0}};
+    if({{point.1}} > y2) y2 = {{point.1}};
+    {% endfor %}
+
+    var rect = {
+        x1 : x1,
+        y1 : y1,
+        x2 : x2,
+        y2 : y2,
+    };
+    rects.push(rect);
+    console.log(rect);
+
+{% endfor %}
+
     window.onload = resize;
     function resize(){
         var w = document.body.clientWidth ;
@@ -54,13 +79,58 @@
         right.style.width = rw + "px";
         left.style.height = h - 25 + "px";
         right.style.height = h - 25 + "px";
+        render_image();
     }
     </script>
 </head>
 <body onresize="resize()">
 <div class = "box-block" id = "box">
 <div class = "box1" id = "imgshow">
-	<img src="result/{{ images }}" id = "pic" width="100%"/>
+	<canvas id="canvas"></div>
+    <script>
+        var loaded = false;
+        var img = new Image();
+        var box1 = document.getElementById("imgshow");
+        var canvas = document.getElementById("canvas");
+        let ctx;
+        ctx = canvas.getContext("2d");
+        // 当图片加载完再动手
+        img.onload = function ()
+        {
+            loaded = true;
+            render_image();
+        }
+        function render_image()
+        {
+            if(!loaded) return;
+            // 画布大小和图片尺寸不一样算好比例
+            const imgWidth = img.naturalWidth, imgHeight = img.naturalHeight;
+            canvas.width = parseInt(box1.style.width);
+            canvas.height = canvas.width * imgHeight / imgWidth;
+            const cWidth = canvas.width, cHeight = canvas.height;
+            const zoom = {
+                width: cWidth / imgWidth,
+                height: cHeight / imgHeight,
+            };
+            // 以图画底
+            ctx.drawImage(img, 0, 0, cWidth, cHeight);
+
+            
+
+            for(var i = 0; i < rects.length; i++)
+            {
+                ctx.strokeStyle = "red";
+                ctx.strokeRect(
+                    rects[i].x1 * zoom.width,
+                    rects[i].y1 * zoom.height,
+                    (rects[i].x2 - rects[i].x1) * zoom.width,
+                    (rects[i].y2 - rects[i].y1) * zoom.height
+                );
+            }
+        }
+        // 动手
+        img.src = "result/{{ images }}";
+    </script>
 </div>
 
 <div class = "box2" id="content" >
@@ -73,6 +143,9 @@
 <p align="left"> 机翻： {{ info.trans }} </p>
 <p align="left">
 译文： <input align="left" type="text" size="20" name="trans{{ info.id }}" value= {{ info.trans }} > </p>
+<p align="left">
+缩放： <input type="range" name="slide{{ info.id }}" id = "slide{{ info.id }}" value="0" min="-50" max="50" onchange="slide('slides{{ info.id }}',this.value)"><p id = "slides{{ info.id }}"> 0</p>
+</p>
 <p align="left"><input type="checkbox" name="bold{{ info.id }}" {% if info.bold %}checked="checked"{% endif %}>加粗</p>
 
 <br>
@@ -89,6 +162,12 @@
 </div>
 <script>
     resize();
+</script>
+<script>
+    function slide(str,v){
+        var tar = document.getElementById(str);
+        tar.innerHTML = v;
+    }
 </script>
 <script type="text/javascript">
 function get(ts){

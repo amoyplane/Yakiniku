@@ -62,6 +62,8 @@ def show(request):
                 info.bold = True
             else:
                 info.bold = False
+            key = "slide" + str(info.id)
+            info.expand(int(concat[key]))
         request.session['infos'] = infos
         yaki.renew(infos, settings.UPLOAD_ROOT + '/' + picname, settings.RESULT_ROOT + '/s_' + picname, settings.RESULT_ROOT + '/' + picname)
 
