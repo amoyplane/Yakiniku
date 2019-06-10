@@ -47,6 +47,19 @@ def show(request):
     elif request.method == 'POST':
         concat = request.POST
         print(concat)
+        print(concat.getlist('enable'))
+        eabs = concat.getlist('enable')
+        for info in infos:
+            info.enable = 0
+        for item in eabs:
+            pid = int(item)
+            infos[pid].enable = 1
+        for info in infos:
+            key = "trans" + str(info.id)
+            info.trans = concat[key]
+        request.session['infos'] = infos
+        yaki.renew(infos, settings.UPLOAD_ROOT + '/' + picname, settings.RESULT_ROOT + '/s_' + picname, settings.RESULT_ROOT + '/' + picname)
+
         return render(request, 'show.html', {'images': picname, 'infos': infos})
         # return render(request, 'show.html')
     # return HttpResponse(picname)

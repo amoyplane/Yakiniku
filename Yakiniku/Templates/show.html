@@ -68,12 +68,11 @@
 <form action="/show.html" method="POST" enctype="multipart/form-data">
 {% csrf_token %}
 {% for info in infos %}
-{% a = str(info.id) + "enable" %}
-<p align="left"><input type="checkbox" name= {{ a }} value="enable">显示</p>
+<p align="left"><input type="checkbox" name= "enable" value="{{ info.id }}" {% if info.enable == 1 %}checked="checked"{% endif %}>显示</p>
 <p align="left"> 原文： {{ info.text }} </p>
 <p align="left"> 机翻： {{ info.trans }} </p>
 <p align="left">
-译文： <input align="left" type="text" size="20" name="trans" value= {{ info.trans }} > </p>
+译文： <input align="left" type="text" size="20" name="trans{{ info.id }}" value= {{ info.trans }} > </p>
 </p>
 
 <br>
@@ -81,7 +80,6 @@
 <script>
 
 </script>
-
 {% endfor %}
 <input type="submit" name="Button" value="提交"/>
  <input type="reset" name="Reset" value="重填"/>

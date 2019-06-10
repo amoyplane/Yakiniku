@@ -110,7 +110,7 @@ def run_quickstart(file_name):
     response = client.document_text_detection(image=image)
 
     blocki = 0
-    infoc = 1
+    infoc = 0
     for page in response.full_text_annotation.pages:
         for block in page.blocks:
             if (block.block_type != 1):
