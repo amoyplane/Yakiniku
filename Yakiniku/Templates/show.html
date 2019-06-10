@@ -40,6 +40,8 @@
         if (w < 700) {
             w = 700;
         }
+        var box = document.getElementById('box');
+        box.style.width =  w + 'px';
         var lw = w / 3;
         var rw = w - lw - 50;
         //var txt ="窗口大小: 宽度=" + w + ", 高度=" + h;
@@ -52,7 +54,7 @@
     </script>
 </head>
 <body onresize="resize()">
-<div class = "box-block">
+<div class = "box-block" id = "box">
 <div class = "box1" id = "imgshow">
 	<img src="result/{{ images }}" onload="get(this)" width="500"/>
 </div>
