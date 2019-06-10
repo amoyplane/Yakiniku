@@ -35,8 +35,8 @@
 
     <script>
     function resize(){
-        var w = window.innerWidth;
-        var h = window.innerHeight;
+        var w = document.body.clientWidth ;
+        var h = document.body.clientHeight ;
         if (w < 700) {
             w = 700;
         }
@@ -52,7 +52,7 @@
         left.style.width =  lw + 'px';
         right.style.width = rw + 'px';
         left.style.height = h - 20 + 'px';
-        left.style.height = h - 20 + 'px';
+        right.style.height = h - 20 + 'px';
     }
     </script>
 </head>
