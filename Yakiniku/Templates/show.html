@@ -34,9 +34,10 @@
     </style>
 
     <script>
+    window.onload = resize();
     function resize(){
-        var w = document.body.clientWidth ;
-        var h = document.body.clientHeight ;
+        var w = document.documentElement.clientWidth;
+        var h = document.documentElement.clientHeight;
         if (w < 700) {
             w = 700;
         }
@@ -49,17 +50,17 @@
         //document.getElementById("demo").innerHTML=txt;
         var left = document.getElementById('imgshow');
         var right = document.getElementById('content');
-        left.style.width =  lw + 'px';
-        right.style.width = rw + 'px';
-        left.style.height = h - 20 + 'px';
-        right.style.height = h - 20 + 'px';
+        left.style.width =  lw + "px";
+        right.style.width = rw + "px";
+        left.style.height = h - 25 + "px";
+        right.style.height = h - 25 + "px";
     }
     </script>
 </head>
 <body onresize="resize()">
 <div class = "box-block" id = "box">
 <div class = "box1" id = "imgshow">
-	<img src="result/{{ images }}" id = "pic" width="100%"/>
+	<img src="result/{{ images }}" id = "pic"/>
 </div>
 
 <div class = "box2" id="content" >
@@ -85,7 +86,7 @@
 </div>
 </div>
 <script>
-resize();
+    resize();
 </script>
 <script type="text/javascript">
 function get(ts){
