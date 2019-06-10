@@ -1,4 +1,4 @@
-from . import quickstart as qs
+#from . import quickstart as qs
 from . import drawline as draw
 from . import embeded as emb
 from . import infostruct as ifs
@@ -10,7 +10,7 @@ def doall(infile, showfile, outfile):
     # file_name='/root/pic/t3.jpg'
     file_name = infile
     # os.system("export GOOGLE_APPLICATION_CREDENTIALS=\"/root/mykey.json\"")
-    """
+    
     rst = []
 
     bound = [[405, 103], [405, 278], [285, 278], [285, 103]]
@@ -32,18 +32,24 @@ def doall(infile, showfile, outfile):
     rst.append(info)
 
     bound = [[899, 1433], [899, 1616], [836, 1616], [836, 1433]]
+    text = "大丈夫……？"
+    trans = '你还好吗…？'
+    info = ifs.Info(bound, 1, text, trans, 3)
+    rst.append(info)
+
+    bound = [[789, 1593], [789, 1733], [676, 1733], [676, 1593]]
     text = "明日家行ってもいい？"
     trans = '明天我可以去你家吗？'
-    info = ifs.Info(bound, 1, text, trans, 3)
+    info = ifs.Info(bound, 1, text, trans, 4)
     rst.append(info)
 
     bound = [[1345, 399], [1345, 1917], [1297, 1917], [1297, 399]]
     text = "生徒会劇を、より面白いものに……そう決めて興奮するこよみだったけれど……？"
     trans = '让学生会的节目更加有趣——下定决心的历开始兴奋起来但……？'
-    info = ifs.Info(bound, 1, text, trans, 4)
+    info = ifs.Info(bound, 1, text, trans, 5, True)
     rst.append(info)
-    """
-    rst = qs.run_quickstart(file_name)
+    
+    #rst = qs.run_quickstart(file_name)
     #qs.drawShow(file_name, showfile, rst)
 
     # draw.openpic(file_name)
