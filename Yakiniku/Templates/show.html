@@ -10,6 +10,8 @@
             background-color: #66CCFF;
         }
         .box1 {
+            overflow-y: auto;
+            overflow-x: hidden;            
         	float: left;
         	display: table-cell;
         	padding: 10px;
@@ -17,7 +19,8 @@
             width: 500px;
         }
         .box2 {
-
+        	overflow-y: auto;
+            overflow-x: hidden;
         	float: left;
 			display: table-cell;
             word-wrap: break-word;
@@ -31,7 +34,7 @@
 <body>
 <div class = "box-block">
 <div class = "box1" id = "imgshow">
-	<img src="result/{{ images }}" width="500"/>
+	<img src="result/{{ images }}" onload="get(this)" width="500"/>
 </div>
 
 <div class = "box2" id="content" >
@@ -39,20 +42,40 @@
 <form>
 {% for info in infos %}
 
-<input type="radio" name="enable" value="enable">显示
-<p align="left"> {{ info.text }} </p>
-<p align="left"> {{ info.trans }} </p>
-<input align="left" type="text" size="20" name="trans" value= {{ info.trans }} > </p>
+<p align="left"><input type="checkbox" name="enable" value="enable">显示</p>
+<p align="left"> 原文： {{ info.text }} </p>
+<p align="left"> 机翻： {{ info.trans }} </p>
+<p align="left">
+译文： <input align="left" type="text" size="20" name="trans" value= {{ info.trans }} > </p>
+</p>
 
 <br>
 
 {% endfor %}
 <input type="submit" name="Button" value="提交"/>
- <input type="reset" name="Reset" value="重填“/>
+ <input type="reset" name="Reset" value="重填"/>
 </form>
 
 </div>
 </div>
 
+<script type="text/javascript">
+function get(ts){
+    ts.style.display = 'block';  //显示图片
+    var left = document.getElementById('imgshow');
+    var right = document.getElementById('content');
+    if (left.offsetHeight >= right.offsetHeight){
+    	//right.style.height = left.offsetHeight+'px';
+    } else {
+        if (left.offsetHeight < 400)
+        {
+            left.style.height =  '400px';
+            right.style.height =  '400px';
+        } else {
+           	right.style.height =  left.offsetHeight+'px';
+        }
+    }
+}
+</script>
 </body>
 </html>
