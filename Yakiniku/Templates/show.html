@@ -126,7 +126,7 @@
         //document.getElementById("demo").innerHTML=txt;
         box.style.width =  w + "px";
         box.style.height = h-30;
-        left.style.width =  lw + "px";
+        left.style.width =  lw - 10 + "px";
         right.style.width = rw + "px";
         left.offsetHeight = h - 25;
         //right.offsetHeight = 500;
@@ -141,7 +141,7 @@
 <body onresize="resize()" style="background-color: #FFF0CD;overflow-y: hidden;">
 <div class = "box-block" id = "box">
     <div class = "box1" id = "imgshow" style="background-color: #FFF0CD;">
-        <div style="background-color: #FFF0CD;">
+        <div style="background-color: #FFF0CD;margin:0px 0px 0px 10px;">
         	<canvas id="canvas">
             <script>
         var loaded = false;
@@ -200,7 +200,7 @@
         img.src = "result/{{ images }}";
             </script>
         </div>
-        <div style="background-color: #FFF0CD;">
+        <div style="background-color: #FFF0CD;margin:0px 0px 0px 10px;">
             <canvas id="origin">
             <script>
         var loaded1 = false;

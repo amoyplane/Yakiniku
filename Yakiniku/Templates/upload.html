@@ -72,6 +72,20 @@ label{
         if ({{ alert }}) alert("请上传合法图片文件= =");
     }
 </script>
+<script>
+    doHide();
+    function doHide(){
+          var oDiv = document.getElementById("divTest");
+          var oButton = document.getElementById("btnTest")
+          if (oDiv.style.display == "none"){
+            oDiv.style.display = "block";
+            oButton.value = "隐藏人名辞典"
+          }else {
+            oDiv.style.display = "none";
+            oButton.value = "显示人名辞典"
+          } 
+        }
+  </script>  
 </head>
 <body style="background-color: #FFF0CD;">
 	<div id="main">
@@ -84,7 +98,14 @@ label{
     {% csrf_token %}
     	<input type="file" name="pic" accept="image/*" style="width:450px; outline: none;"/>
     	<input type="submit" value="上传"  />
+        <p></p>
+        <input id="btnTest" type="button" value="显示人名辞典" onclick="doHide();"/>
+        <div id="divTest" style="display:none;">
+            <p></p>
+            最多支持5个人名：
+        </div>
 	</form>
+
 
 
 </div>
