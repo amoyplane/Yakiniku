@@ -7,6 +7,7 @@ import random
 
 from django.conf import settings
 from . import yakimain as yaki
+from . import infostruct as ifs
 
 
 def runmain(name):
@@ -34,6 +35,7 @@ def upload(request):
 
         request.session['infos'] = ret
         request.session['picname'] = obj.name
+        request.session['newone'] = 0
 
         return HttpResponseRedirect('show.html')
         # return show(request, obj.name)
@@ -50,6 +52,8 @@ def show(request):
         concat = request.POST
         print(concat)
         print(concat.getlist('enable'))
+        # print(concat['newone'])
+        print(len(infos))
         eabs = concat.getlist('enable')
         for info in infos:
             info.enable = 0
@@ -79,6 +83,18 @@ def show(request):
             x2 = x1 + width
             y2 = y1 + height
             info.vertexs = [[x1, y1], [x1, y2], [x2, y2], [x2, y1]]
+
+        delt = concat.getlist('delete')
+        for item in delt:
+            pid = int(item)
+            for info in infos:
+                if info.id > pid:
+                    info.id = info.id - 1
+            del infos[pid]
+        if (concat['newone'] == 'yes'):
+            id = len(infos)
+            ifonew = ifs.Info([[10, 10], [20, 10], [20, 20], [10, 20]], 1, '', '', id, False)
+            infos.append(ifonew)
 
         request.session['infos'] = infos
         print("renewing..")

@@ -102,17 +102,20 @@
         var box = document.getElementById('box');
         var left = document.getElementById('imgshow');
         var right = document.getElementById('content');
+        var origin = document.getElementById('origin');
         var w = document.body.clientWidth ;
         var h = document.documentElement.clientHeight ;
-        console.log(w);
-        console.log(h);
-        console.log(box.style.height);
-        console.log(left.style.height);
-        console.log(right.style.height );
-        console.log(box.offsetHeight);
-        console.log(left.offsetHeight);
-        console.log(right.offsetHeight );        
-        console.log("d");
+        //console.log(w);
+        //console.log(h);
+        //console.log(box.style.height);
+        //console.log(left.style.height);
+        //console.log(right.style.height );
+        //console.log(box.offsetHeight);
+        //console.log(left.offsetHeight);
+        //console.log(right.offsetHeight ); 
+        //console.log(origin.offsetWidth);
+        //console.log(origin.style.width);
+        //console.log("d");
         //h = 700;
         if (w < 700) {
             w = 700;
@@ -125,19 +128,22 @@
         box.style.height = h-30;
         left.style.width =  lw + "px";
         right.style.width = rw + "px";
-        //left.offsetHeight = h - 25;
+        left.offsetHeight = h - 25;
         //right.offsetHeight = 500;
         left.style.height = h - 50 + "px";
         right.style.height = h - 50 + "px";
         render_image();
+        render_image1();
+        //oric();
     }
     </script>
 </head>
-<body onresize="resize()" style="background-color: #FFF0CD;">
+<body onresize="resize()" style="background-color: #FFF0CD;overflow-y: hidden;">
 <div class = "box-block" id = "box">
-<div class = "box1" id = "imgshow">
-	<canvas id="canvas"></div>
-    <script>
+    <div class = "box1" id = "imgshow" style="background-color: #FFF0CD;">
+        <div style="background-color: #FFF0CD;">
+        	<canvas id="canvas">
+            <script>
         var loaded = false;
         var img = new Image();
         var box1 = document.getElementById("imgshow");
@@ -149,7 +155,7 @@
         {
             loaded = true;
             render_image();
-{% for info in infos %}
+                {% for info in infos %}
             var slidewidth = document.getElementById("slidewidth{{ info.id }}");
             var slideheight = document.getElementById("slideheight{{ info.id }}");
             var slidex = document.getElementById("slidex{{ info.id }}");
@@ -158,7 +164,7 @@
             slideheight.max = img.naturalHeight;
             slidex.max = img.naturalWidth;
             slidey.max = img.naturalHeight;
-{% endfor %}
+                {% endfor %}
         }
         function render_image()
         {
@@ -175,8 +181,8 @@
             // 以图画底
             ctx.drawImage(img, 0, 0, cWidth, cHeight);
             ctx.strokeStyle = "red";
-
-{% for info in infos %}
+    
+                {% for info in infos %}
             var slidewidth = document.getElementById("slidewidth{{ info.id }}");
             var slideheight = document.getElementById("slideheight{{ info.id }}");
             var slidex = document.getElementById("slidex{{ info.id }}");
@@ -187,12 +193,49 @@
                     slidewidth.value * zoom.width,
                     slideheight.value * zoom.height
                 );
-{% endfor %}
+                {% endfor %}
 
         }
         // 动手
         img.src = "result/{{ images }}";
-    </script>
+            </script>
+        </div>
+        <div style="background-color: #FFF0CD;">
+            <canvas id="origin">
+            <script>
+        var loaded1 = false;
+        var img1 = new Image();
+        var box1 = document.getElementById("imgshow");
+        var origin = document.getElementById("origin");
+        let ctx1;
+        ctx1 = origin.getContext("2d");
+        // 当图片加载完再动手
+        img1.onload = function ()
+        {
+            loaded1 = true;
+            render_image1();
+        }
+        function render_image1()
+        {
+            if(!loaded1) return;
+            // 画布大小和图片尺寸不一样算好比例
+            const imgWidth1 = img1.naturalWidth, imgHeight1 = img1.naturalHeight;
+            origin.width = parseInt(box1.style.width);
+            origin.height = origin.width * imgHeight1 / imgWidth1;
+            const cWidth1 = origin.width, cHeight1 = origin.height;
+            const zoom1 = {
+                width: cWidth1 / imgWidth1,
+                height: cHeight1 / imgHeight1,
+            };
+            // 以图画底
+            ctx1.drawImage(img1, 0, 0, cWidth1, cHeight1);
+            ctx1.strokeStyle = "red";
+        }
+        // 动手
+        img1.src = "upload/{{ images }}";
+            </script>    
+        </div>
+    </div>
 </div>
 
 <div class = "box2" id="content" >
@@ -200,7 +243,7 @@
 <form id="form" action="/show.html" method="POST" enctype="multipart/form-data">
 {% csrf_token %}
 {% for info in infos %}
-<p align="left"><input type="checkbox" name= "enable" value="{{ info.id }}" {% if info.enable == 1 %}checked="checked"{% endif %}>显示</p>
+<p align="left"><input type="checkbox" name= "enable" value="{{ info.id }}" {% if info.enable == 1 %}checked="checked"{% endif %}>显示&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name= "delete" value="{{ info.id }}" >删除</p>
 <p align="left"> 原文： {{ info.text }} </p>
 <p align="left"> 机翻： {{ info.trans }} </p>
 <p align="left">
@@ -210,7 +253,7 @@
 <p align="left">高度：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="range" name="slideheight{{ info.id }}" id = "slideheight{{ info.id }}" min="0" max="5000" onchange="render_image()"></p>
 <p align="left">水平位置： <input type="range" name="slidex{{ info.id }}" id = "slidex{{ info.id }}" min="0" max="5000" onchange="render_image()"></p>
 <p align="left">垂直位置： <input type="range" name="slidey{{ info.id }}" id = "slidey{{ info.id }}" min="0" max="5000" onchange="render_image()"></p>
-<p align="left"><input type="checkbox" name="bold{{ info.id }}" {% if info.bold %}checked="checked"{% endif %}>加粗<input type="checkbox" name="dire{{ info.id }}" {% if info.direct == 0 %}checked="checked"{% endif %}>横板</p>
+<p align="left"><input type="checkbox" name="bold{{ info.id }}" {% if info.bold %}checked="checked"{% endif %}>加粗&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="dire{{ info.id }}" {% if info.direct == 0 %}checked="checked"{% endif %}>横板</p>
 
 <br>
 <script>
@@ -242,6 +285,8 @@
 !-->
 <script>
     function downloadIamge(selector, name) {
+var newone = document.getElementById('newone');
+        newone.value = "no";         
     var image = new Image()
     // 解决跨域 Canvas 污染问题
     image.setAttribute('crossOrigin', 'anonymous')
@@ -279,6 +324,8 @@
         render_image();
     }
 </script>
+
+<input type="hidden" id="newone" name="newone" value="no">
 </form>
 
 </div>
@@ -304,24 +351,46 @@
         }
     }
 </script>
-
+&nbsp;&nbsp;
 <div align="center" style="margin:0px 0px 0px 0px;">
 <button type="button" onclick="clicks()">生成</button>
 <button type="button" onclick="rsts()">重填</button>
+<button type="button" onclick="newone()">增加</button>
 <button type="button" onclick="downloadIamge('canvas', 'Trans_{{ images }}')">保存</button>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="upload.html" id = "urll">
+    <button>重新上传</button>
+</a>
+
 </div>
 </body>
+
 <script>
     function clicks()
     {
         //alert('你好，世界!');
+        //sessionStorage['newone'] = 0;
+        var newone = document.getElementById('newone');
+        newone.value = "no";         
         document.getElementById("form").submit();
     }
     function rsts()
     {
+        var newone = document.getElementById('newone');
+        newone.value = "no";        
+        //sessionStorage['newone'] = 0;
         //alert('你好，世界!');
         callreset();
     }    
+    function newone()
+    {
+        callreset();
+        //alert('你好，世界!');
+        var newone = document.getElementById('newone');
+        newone.value = "yes";
+        document.getElementById("form").submit();
+    }     
 </script>
 
 </html>
