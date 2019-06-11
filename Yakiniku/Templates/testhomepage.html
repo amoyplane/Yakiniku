@@ -1,10 +1,11 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="utf-8">
-    <title>YakinikuMan</title>
- <script src="https://lib.sinaapp.com/js/jquery/2.0.2/jquery-2.0.2.min.js"></script>
-    <style type="text/css">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>百度一下,你就知道</title>
+<style type="text/css">
+
+
 body,div,form,input{font-size:14px;margin:0;padding:0}
 a{color:#0000cc}
 a:active{color:#f90}
@@ -49,39 +50,22 @@ width:408px;
 #footer p a{font-size:12px}
 #footer p.bq{color:#77c}
 #footer p.bq a{color:#77c}
-
-label{
-            position: relative;
-        }
-        #fileinp{
-            position: absolute;
-            left: 0;
-            top: 0;
-            opacity: 0;
-        }
-        #btn{
-            margin-right: 5px;
-        }
-        #text{
-            color: red;
-        }
 </style>
-
 </head>
-<body>
-	<div id="main">
-	<h1>
-		<a href="#" class="logo">
-			<img src="icon/logo{{ images }}.png">
-		</a>
-	</h1>
-	<form action="/upload.html" method="POST" enctype="multipart/form-data" style="height :50px">
-    {% csrf_token %}
-    	<input type="file" name="pic" accept="image/*" style="width:450px; outline: none;"/>
-    	<input type="submit" value="上传"  />
-	</form>
 
+
+<body>
+
+<div id="main">
+<h1>
+<a href="#" class="logo"><img src="../img/baidu.jpg"></a></h1>
+
+<form action="#" method="post" id="search_form">
+<input name="" type="text" id="keyword">
+<input name="" type="button" value="百度一下" class="search_btn" onmouseout="'this.className='search_btn'" onmousedown="'this.className.down_btn'">
+</form>
 
 </div>
+
 </body>
 </html>

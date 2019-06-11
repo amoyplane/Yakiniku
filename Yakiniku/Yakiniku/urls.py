@@ -23,9 +23,11 @@ from App import view
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
+    url(r'^$', view.upload),
     url(r'^upload.html$', view.upload),
     url(r'^show.html$', view.show),
     url(r'^upload/(?P<path>.*)', serve, {'document_root': settings.UPLOAD_ROOT}),
     url(r'^result/(?P<path>.*)', serve, {'document_root': settings.RESULT_ROOT}),
+    url(r'^icon/(?P<path>.*)', serve, {'document_root': settings.ICON_ROOT}),
     # url(r'^$', view.hello),
 ]

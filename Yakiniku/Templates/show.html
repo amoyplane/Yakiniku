@@ -3,11 +3,15 @@
 <head>
     <meta charset="utf-8">
     <title>YakinikuMan</title>
+    <script src="https://lib.sinaapp.com/js/jquery/2.0.2/jquery-2.0.2.min.js"></script>
 
     <style>
         .box-block
         {
-            background-color: #222222;
+            min-width: 600px; 
+            width:expression(document.body.clientWidth < 600? "600px": "auto" ); 
+            background-color: #66CCFF;
+            margin:0px 0px 0px 0px;
         }
         .box1
         {
@@ -15,9 +19,7 @@
             overflow-x: hidden;            
         	float: left;
         	display: inline;
-            background-color: #888888;
-            
-           
+            background-color: #66CCFF;           
         }
         .box2
         {
@@ -27,10 +29,68 @@
 			display: inline;
             word-wrap: break-word;
             text-align: center;
-            padding: 10px;        	
-            background-color: #88CCFF;
-
+            padding: 00px;        	
+            background-color: #66CCFF;
+            margin: 0px 0px 10px 10px;
         }
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 350px;
+            border-radius: 10px;
+        }
+        input[type=range]:focus {
+        outline: none;
+        }
+        input[type=range]::-ms-track {
+            height: 25px;
+            border-radius: 10px;
+            box-shadow: 0 1px 1px #def3f8, inset 0 .125em .125em #0d1112;
+            border-color: transparent; /*去除原有边框*/
+            color: transparent; /*去除轨道内的竖线*/
+        }
+        
+        input[type=range]::-ms-thumb {
+            border: solid 0.125em rgba(205, 224, 230, 0.5);
+            height: 25px;
+            width: 25px;
+            border-radius: 50%;
+            background: #ffffff;
+            margin-top: -5px;
+            box-shadow: 0 .125em .125em #3b4547;
+        }
+        
+        input[type=range]::-ms-fill-lower {
+            /*进度条已填充的部分*/
+            height: 22px;
+            border-radius: 10px;
+            background: linear-gradient(to right, #059CFA, white 100%, white);
+        }
+        
+        input[type=range]::-ms-fill-upper {
+            /*进度条未填充的部分*/
+            height: 22px;
+            border-radius: 10px;
+            background: #ffffff;
+        }
+        
+        input[type=range]:focus::-ms-fill-lower {
+            background: linear-gradient(to right, #059CFA, white 100%, white);
+        }
+        
+        input[type=range]:focus::-ms-fill-upper {
+            background: #ffffff;
+        }
+        input[type=range]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        height: 25px;
+        width: 25px;
+        margin-top: -5px; /*使滑块超出轨道部分的偏移量相等*/
+        background: #ffffff; 
+        border-radius: 50%; /*外观设置为圆形*/
+        border: solid 0.125em rgba(205, 224, 230, 0.5); /*设置边框*/
+        box-shadow: 0 .125em .125em #3b4547; /*添加底部阴影*/
+        }
+        
     </style>
 
     <script>
@@ -39,29 +99,41 @@
 
     window.onload = resize;
     function resize(){
+        var box = document.getElementById('box');
+        var left = document.getElementById('imgshow');
+        var right = document.getElementById('content');
         var w = document.body.clientWidth ;
-        var h = document.body.clientHeight ;
+        var h = document.documentElement.clientHeight ;
+        console.log(w);
+        console.log(h);
+        console.log(box.style.height);
+        console.log(left.style.height);
+        console.log(right.style.height );
+        console.log(box.offsetHeight);
+        console.log(left.offsetHeight);
+        console.log(right.offsetHeight );        
+        console.log("d");
+        //h = 700;
         if (w < 700) {
             w = 700;
         }
-        var box = document.getElementById('box');
-        box.style.width =  w + 'px';
-        box.style.height = h + 'px';
         var lw = w / 3;
-        var rw = w - lw - 100;
+        var rw = w - lw - 20;
         //var txt ="窗口大小: 宽度=" + w + ", 高度=" + h;
         //document.getElementById("demo").innerHTML=txt;
-        var left = document.getElementById('imgshow');
-        var right = document.getElementById('content');
+        box.style.width =  w + "px";
+        box.style.height = h-30;
         left.style.width =  lw + "px";
         right.style.width = rw + "px";
-        left.style.height = h - 25 + "px";
-        right.style.height = h - 25 + "px";
+        //left.offsetHeight = h - 25;
+        //right.offsetHeight = 500;
+        left.style.height = h - 50 + "px";
+        right.style.height = h - 50 + "px";
         render_image();
     }
     </script>
 </head>
-<body onresize="resize()">
+<body onresize="resize()" style="background-color: #66CCFF;">
 <div class = "box-block" id = "box">
 <div class = "box1" id = "imgshow">
 	<canvas id="canvas"></div>
@@ -132,13 +204,14 @@
 <p align="left"> 原文： {{ info.text }} </p>
 <p align="left"> 机翻： {{ info.trans }} </p>
 <p align="left">
-译文： <input align="left" type="text" size="20" name="trans{{ info.id }}" value= {{ info.trans }} > </p>
+译文： <input align="left" type="text" style="width:400px; height:40px;border-radius:3px;border:0px solid #000;" name="trans{{ info.id }}" value= {{ info.trans }} > </p>
 
-<p align="left">宽度： <input type="range" name="slidewidth{{ info.id }}" id = "slidewidth{{ info.id }}" min="0" max="5000" onchange="render_image()"></p>
-<p align="left">高度： <input type="range" name="slideheight{{ info.id }}" id = "slideheight{{ info.id }}" min="0" max="5000" onchange="render_image()"></p>
+<p align="left">宽度：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="range" class = "slider" name="slidewidth{{ info.id }}" id = "slidewidth{{ info.id }}" min="0" max="5000" onchange="render_image()"></p>
+<p align="left">高度：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="range" name="slideheight{{ info.id }}" id = "slideheight{{ info.id }}" min="0" max="5000" onchange="render_image()"></p>
 <p align="left">水平位置： <input type="range" name="slidex{{ info.id }}" id = "slidex{{ info.id }}" min="0" max="5000" onchange="render_image()"></p>
 <p align="left">垂直位置： <input type="range" name="slidey{{ info.id }}" id = "slidey{{ info.id }}" min="0" max="5000" onchange="render_image()"></p>
-<p align="left"><input type="checkbox" name="bold{{ info.id }}" {% if info.bold %}checked="checked"{% endif %}>加粗</p>
+<p align="left"><input type="checkbox" name="bold{{ info.id }}" {% if info.bold %}checked="checked"{% endif %}>加粗<input type="checkbox" name="dire{{ info.id }}" {% if info.direct == 0 %}checked="checked"{% endif %}>横板</p>
+
 <br>
 <script>
     var x1 = 100000;
@@ -162,8 +235,43 @@
     slidey.defaultValue = slidey.value = y1 + parseInt((y2 - y1) / 2);
 </script>
 {% endfor %}
+<!--
 <input type="submit" name="Button" value="生成"/>
 <input id="resetbtn" type="button" name="Reset" onclick="callreset()" value="重填"/>
+<input id="download" type="button" name="Download" onclick="downloadIamge('canvas', 'Trans_{{ images }}')" value="保存"/>
+!-->
+<script>
+    function downloadIamge(selector, name) {
+    var image = new Image()
+    // 解决跨域 Canvas 污染问题
+    image.setAttribute('crossOrigin', 'anonymous')
+    image.onload = function () {
+        var canvas = document.createElement('canvas')
+        canvas.width = image.width
+        canvas.height = image.height
+
+        var context = canvas.getContext('2d')
+        context.drawImage(image, 0, 0, image.width, image.height)
+        var url = canvas.toDataURL('result/{{ images }}')
+
+        // 生成一个a元素
+        var a = document.createElement('a')
+        // 创建一个单击事件
+        var event = new MouseEvent('click')
+
+        // 将a的download属性设置为我们想要下载的图片名称，若name不存在则使用‘下载图片名称’作为默认名称
+        a.download = name || '下载图片名称'
+        console.log(a.download);
+        // 将生成的URL设置为a.href属性
+        a.href = url
+
+        // 触发a的单击事件
+        a.dispatchEvent(event)
+    }
+    image.src = "result/{{ images }}"
+}
+</script>
+
 <script>
     function callreset()
     {
@@ -196,5 +304,24 @@
         }
     }
 </script>
+
+<div align="center" style="margin:0px 0px 0px 0px;">
+<button type="button" onclick="clicks()">生成</button>
+<button type="button" onclick="rsts()">重填</button>
+<button type="button" onclick="downloadIamge('canvas', 'Trans_{{ images }}')">保存</button>
+</div>
 </body>
+<script>
+    function clicks()
+    {
+        //alert('你好，世界!');
+        document.getElementById("form").submit();
+    }
+    function rsts()
+    {
+        //alert('你好，世界!');
+        callreset();
+    }    
+</script>
+
 </html>

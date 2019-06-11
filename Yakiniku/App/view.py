@@ -3,6 +3,7 @@ from django.shortcuts import redirect
 from django.shortcuts import HttpResponse
 from django.shortcuts import HttpResponseRedirect
 import os
+import random
 
 from django.conf import settings
 from . import yakimain as yaki
@@ -18,7 +19,8 @@ def runmain(name):
 
 def upload(request):
     if request.method == 'GET':
-        return render(request, 'upload.html')
+        t = random.randint(1, 4)
+        return render(request, 'upload.html', {'images': t})
     elif request.method == 'POST':
         obj = request.FILES.get('pic')
         if obj == None:
@@ -62,18 +64,24 @@ def show(request):
                 info.bold = True
             else:
                 info.bold = False
+            key = "dire" + str(info.id)
+            if len(concat.getlist(key)):
+                info.direct = 0
+            else:
+                info.direct = 1
 
             width = int(concat["slidewidth" + str(info.id)])
             height = int(concat["slideheight" + str(info.id)])
             x = int(concat["slidex" + str(info.id)])
             y = int(concat["slidey" + str(info.id)])
-            x1 = x - width // 2;
-            y1 = y - height // 2;
-            x2 = x1 + width;
-            y2 = y1 + height;
+            x1 = x - width // 2
+            y1 = y - height // 2
+            x2 = x1 + width
+            y2 = y1 + height
             info.vertexs = [[x1, y1], [x1, y2], [x2, y2], [x2, y1]]
-            
+
         request.session['infos'] = infos
+        print("renewing..")
         yaki.renew(infos, settings.UPLOAD_ROOT + '/' + picname, settings.RESULT_ROOT + '/s_' + picname, settings.RESULT_ROOT + '/' + picname)
 
         return render(request, 'show.html', {'images': picname, 'infos': infos})
