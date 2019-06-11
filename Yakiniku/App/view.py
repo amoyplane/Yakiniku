@@ -3,6 +3,7 @@ from django.shortcuts import redirect
 from django.shortcuts import HttpResponse
 from django.shortcuts import HttpResponseRedirect
 import os
+import sys
 import random
 from PIL import Image
 from django.conf import settings
@@ -25,17 +26,19 @@ def upload(request):
     elif request.method == 'POST':
         obj = request.FILES.get('pic')
         if obj == None:
-            return render(request, 'upload.html')
-        try:
-            f = open(os.path.join('upload', obj.name), 'wb')
-        except OSError:
             t = random.randint(1, 4)
-            return render(request, 'upload.html', {'images': t, 'alert': 'true'})
+            return render(request, 'upload.html', {'images': t, 'alert': 'false'})
+
+        f = open(os.path.join('upload', obj.name), 'wb')
         for line in obj.chunks():
             f.write(line)
         f.close()
 
-        img = Image.open(os.path.join('upload', obj.name))
+        try:
+            img = Image.open(os.path.join('upload', obj.name))
+        except:
+            t = random.randint(1, 4)
+            return render(request, 'upload.html', {'images': t, 'alert': 'true'})
 
         ret = runmain(obj.name)
 
