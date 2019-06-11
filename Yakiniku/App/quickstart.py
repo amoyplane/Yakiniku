@@ -88,8 +88,11 @@ def gettingdir(vertices):
     return 0
 
 
-def run_quickstart(file_name):
+def run_quickstart(file_name, diction):
     ret = []
+    namelist1 = ['田ad中', '佐ad藤', '鈴ad木', '高ad橋', '渡ad辺', '伊ad藤', '山ad本', '中ad村', '小ad林', '加ad藤']
+    namelist2 = ['田中', '佐藤', '鈴木', '高橋', '渡辺', '伊藤', '山本', '中村', '小林', '加藤']
+    namelist3 = ['田中', '佐藤', '铃木', '高桥', '渡边', '伊藤', '山本', '中村', '小林', '加藤']
 
     # Instantiates a client
     # [START vision_python_migration_client]

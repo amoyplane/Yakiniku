@@ -10,6 +10,7 @@ class Info:
         self.direct = direction
         self.text = text
         self.trans = trans
+        self.user = trans
         self.id = id
         self.enable = 1
         self.bold = bold

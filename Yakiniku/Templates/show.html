@@ -247,7 +247,12 @@
 <p align="left"> 原文： {{ info.text }} </p>
 <p align="left"> 机翻： {{ info.trans }} </p>
 <p align="left">
-译文： <input align="left" type="text" style="width:400px; height:40px;border-radius:3px;border:0px solid #000;" name="trans{{ info.id }}" value= "{{ info.trans }}" > </p>
+    译文： </br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <!--
+    <input align="left" type="text" style="width:400px; height:40px;border-radius:3px;border:0px solid #000;" name="trans{{ info.id }}" value= "{{ info.trans }}" > 
+    !-->
+    <textarea name="trans{{ info.id }}" style="width:360px; height:40px;border-radius:3px;border:0px solid #000;" form="form">{{ info.user }}</textarea>
+</p>
 
 <p align="left">宽度：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="range" class = "slider" name="slidewidth{{ info.id }}" id = "slidewidth{{ info.id }}" min="0" max="5000" onchange="render_image()"></p>
 <p align="left">高度：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="range" name="slideheight{{ info.id }}" id = "slideheight{{ info.id }}" min="0" max="5000" onchange="render_image()"></p>
@@ -284,37 +289,54 @@
 <input id="download" type="button" name="Download" onclick="downloadIamge('canvas', 'Trans_{{ images }}')" value="保存"/>
 !-->
 <script>
-    function downloadIamge(selector, name) {
-var newone = document.getElementById('newone');
+    function downloadIamge(selector, name)
+    {
+        var newone = document.getElementById('newone');
         newone.value = "no";         
-    var image = new Image()
-    // 解决跨域 Canvas 污染问题
-    image.setAttribute('crossOrigin', 'anonymous')
-    image.onload = function () {
-        var canvas = document.createElement('canvas')
-        canvas.width = image.width
-        canvas.height = image.height
+    
+        // 解决跨域 Canvas 污染问题
+        /*
+        var image = new Image()
+        image.setAttribute('crossOrigin', 'anonymous')
+        image.onload = function () {
+            var canvas = document.createElement('canvas')
+            canvas.width = image.width
+            canvas.height = image.height
 
-        var context = canvas.getContext('2d')
-        context.drawImage(image, 0, 0, image.width, image.height)
-        var url = canvas.toDataURL('result/{{ images }}')
+            var context = canvas.getContext('2d')
+            context.drawImage(image, 0, 0, image.width, image.height)
+            var url = canvas.toDataURL('result/{{ images }}')
 
-        // 生成一个a元素
-        var a = document.createElement('a')
-        // 创建一个单击事件
-        var event = new MouseEvent('click')
+            // 生成一个a元素
+            var a = document.createElement('a')
+            // 创建一个单击事件
+            var event = new MouseEvent('click')
 
-        // 将a的download属性设置为我们想要下载的图片名称，若name不存在则使用‘下载图片名称’作为默认名称
-        a.download = name || '下载图片名称'
-        console.log(a.download);
-        // 将生成的URL设置为a.href属性
-        a.href = url
+            // 将a的download属性设置为我们想要下载的图片名称，若name不存在则使用‘下载图片名称’作为默认名称
+            a.download = name || '下载图片名称'
+            console.log(a.download);
+            // 将生成的URL设置为a.href属性
+            a.href = url
 
-        // 触发a的单击事件
-        a.dispatchEvent(event)
+            // 触发a的单击事件
+            a.dispatchEvent(event)
+        }
+        image.src = "result/{{ images }}"
+        */
+        if(!loaded)
+            return;
+        img.setAttribute('crossOrigin', 'anonymous')
+        saveFile(img, "233");
+        /*
+        var canvas = document.createElement('canvast');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        var context = canvas.getContext('2d');
+        context.drawImage(img, 0, 0, img.width, img.height);
+        Canvas2Image.saveAsImage(canvas, img.width, img.height, type, f);
+        */
+
     }
-    image.src = "result/{{ images }}"
-}
 </script>
 
 <script>
@@ -356,7 +378,7 @@ var newone = document.getElementById('newone');
 <button type="button" onclick="clicks()">生成</button>
 <button type="button" onclick="rsts()">重填</button>
 <button type="button" onclick="newone()">增加</button>
-<button type="button" onclick="downloadIamge('canvas', 'Trans_{{ images }}')">保存</button>
+<a href="result/{{ images }}"  download=""  id = "urll"><button type="button" >保存</button></a>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <a href="upload.html" id = "urll">

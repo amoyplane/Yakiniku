@@ -5,13 +5,14 @@ from . import infostruct as ifs
 import sys
 
 
-def doall(infile, showfile, outfile):
+def doall(infile, showfile, outfile, diction):
     # f = open('ans.txt', 'w')
     # file_name='/root/pic/t3.jpg'
     file_name = infile
     # os.system("export GOOGLE_APPLICATION_CREDENTIALS=\"/root/mykey.json\"")
     rst = []
     '''
+
     bound = [[405, 103], [405, 278], [285, 278], [285, 103]]
     text = "もう夏休みも終わっちゃうけど…"
     trans = '暑假已经快要结束了……'
@@ -48,7 +49,7 @@ def doall(infile, showfile, outfile):
     info = ifs.Info(bound, 1, text, trans, 5, True)
     rst.append(info)
     '''
-    rst = qs.run_quickstart(file_name)
+    rst = qs.run_quickstart(file_name, diction)
     #qs.drawShow(file_name, showfile, rst)
 
     # draw.openpic(file_name)

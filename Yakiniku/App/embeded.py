@@ -30,6 +30,8 @@ def DrawText(image, text, startPoint, direction, maxLength, fontName, fontSize, 
         if c == '\n':
             p = (p[0] - fontSize - spacing, startPoint[1]) if direction == 1 else (startPoint[0], p[1] + fontSize + spacing)
             continue
+        if c == '\r':
+            continue
         if p[direction] + cSize > startPoint[direction] + maxLength:
             p = (p[0] - fontSize - spacing, startPoint[1]) if direction == 1 else (startPoint[0], p[1] + fontSize + spacing)
         DrawWord(image=image, word=c, position=p, direction=direction, fontName=fontName, fontSize=fontSize, fontColor=fontColor, bold=bold)
@@ -45,6 +47,8 @@ def GetRow(text, maxLength, direction, fontName, fontSize, tracking=0):
         if c == '\n':
             row += 1
             pos = 0
+            continue
+        if c == '\r':
             continue
         if pos + cSize > maxLength:
             row += 1
@@ -64,6 +68,8 @@ def GetTracking(text, maxLength, direction, fontName, fontSize):
             tracking = min(tracking, tracking if cnt <= 1 else (maxLength - pos) // (cnt - 1))
             cnt = 0
             pos = 0
+            continue
+        if c == '\r':
             continue
         if pos + cSize > maxLength:
             tracking = min(tracking, tracking if cnt <= 1 else (maxLength - pos) // (cnt - 1))
@@ -116,7 +122,7 @@ def Embeded(file, outname, infos):
         points = []
         for po in item.vertexs:
             points.append((po[0], po[1]))
-        DrawPoly(image=image, text=item.trans, points=points, direction=item.direct, fontName=fontName, bold=item.bold)
+        DrawPoly(image=image, text=item.user, points=points, direction=item.direct, fontName=fontName, bold=item.bold)
     image.save(outname)
 
 

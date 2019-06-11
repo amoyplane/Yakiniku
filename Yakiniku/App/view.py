@@ -11,11 +11,11 @@ from . import yakimain as yaki
 from . import infostruct as ifs
 
 
-def runmain(name):
+def runmain(name, diction):
     print('Processing ' + name + ' ... ')
     print(settings.UPLOAD_ROOT)
     print(settings.RESULT_ROOT)
-    ret = yaki.doall(settings.UPLOAD_ROOT + '/' + name, settings.RESULT_ROOT + '/s_' + name, settings.RESULT_ROOT + '/' + name)
+    ret = yaki.doall(settings.UPLOAD_ROOT + '/' + name, settings.RESULT_ROOT + '/s_' + name, settings.RESULT_ROOT + '/' + name, diction)
     return ret
 
 
@@ -36,11 +36,19 @@ def upload(request):
 
         try:
             img = Image.open(os.path.join('upload', obj.name))
+            # print("图像格式", img.format)
         except:
             t = random.randint(1, 4)
             return render(request, 'upload.html', {'images': t, 'alert': 'true'})
 
-        ret = runmain(obj.name)
+        if (img.format == 'TIFF'):
+            t = random.randint(1, 4)
+            return render(request, 'upload.html', {'images': t, 'alert': 'true'})
+
+        diction = [['侑', '侑']]
+        ret = runmain(obj.name, diction)
+        for item in ret:
+            item.user = item.trans
 
         request.session['infos'] = ret
         request.session['picname'] = obj.name
@@ -73,7 +81,7 @@ def show(request):
                 infos[pid].enable = 1
         for info in infos:
             key = "trans" + str(info.id)
-            info.trans = concat[key]
+            info.user = concat[key]
             key = "bold" + str(info.id)
             if len(concat.getlist(key)):
                 info.bold = True
