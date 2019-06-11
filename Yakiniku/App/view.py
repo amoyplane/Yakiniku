@@ -4,7 +4,7 @@ from django.shortcuts import HttpResponse
 from django.shortcuts import HttpResponseRedirect
 import os
 import random
-
+from PIL import Image
 from django.conf import settings
 from . import yakimain as yaki
 from . import infostruct as ifs
@@ -31,11 +31,13 @@ def upload(request):
             f.write(line)
         f.close()
 
+        img = Image.open(os.path.join('upload', obj.name))
+
         ret = runmain(obj.name)
 
         request.session['infos'] = ret
         request.session['picname'] = obj.name
-        request.session['newone'] = 0
+        request.session['size'] = [img.size[0], img.size[1]]
 
         return HttpResponseRedirect('show.html')
         # return show(request, obj.name)
@@ -45,6 +47,7 @@ def upload(request):
 def show(request):
     picname = request.session.get('picname')
     infos = request.session.get('infos')
+    size = request.session.get('size')
     print(picname)
     if request.method == 'GET':
         return render(request, 'show.html', {'images': picname, 'infos': infos})
@@ -93,7 +96,9 @@ def show(request):
             del infos[pid]
         if (concat['newone'] == 'yes'):
             id = len(infos)
-            ifonew = ifs.Info([[10, 10], [20, 10], [20, 20], [10, 20]], 1, '', '', id, False)
+            midx = size[0] / 2
+            midy = size[1] / 2
+            ifonew = ifs.Info([[5 * midx / 6, 5 * midy / 6], [7 * midx / 6, 5 * midy / 6], [7 * midx / 6, 7 * midy / 6], [5 * midx / 6, 7 * midy / 6]], 1, '', '', id, False)
             infos.append(ifonew)
 
         request.session['infos'] = infos

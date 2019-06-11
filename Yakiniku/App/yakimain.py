@@ -11,7 +11,6 @@ def doall(infile, showfile, outfile):
     file_name = infile
     # os.system("export GOOGLE_APPLICATION_CREDENTIALS=\"/root/mykey.json\"")
     rst = []
-
     '''
     bound = [[405, 103], [405, 278], [285, 278], [285, 103]]
     text = "もう夏休みも終わっちゃうけど…"
@@ -49,7 +48,6 @@ def doall(infile, showfile, outfile):
     info = ifs.Info(bound, 1, text, trans, 5, True)
     rst.append(info)
     '''
-
     rst = qs.run_quickstart(file_name)
     #qs.drawShow(file_name, showfile, rst)
 
