@@ -184,7 +184,7 @@ def run_quickstart(file_name, diction):
                 transans = trans.ask_translation('ja', centence)
                 i = 0
                 for dic in diction:
-                    centence = centence.replace(namelist3[i], dic[1])
+                    transans = transans.replace(namelist3[i], dic[1])
                     i = i + 1
                 ifb.trans = transans
                 ifb.user = transans
