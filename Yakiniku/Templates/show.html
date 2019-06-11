@@ -247,7 +247,7 @@
 <p align="left"> 原文： {{ info.text }} </p>
 <p align="left"> 机翻： {{ info.trans }} </p>
 <p align="left">
-译文： <input align="left" type="text" style="width:400px; height:40px;border-radius:3px;border:0px solid #000;" name="trans{{ info.id }}" value= {{ info.trans | safe }} > </p>
+译文： <input align="left" type="text" style="width:400px; height:40px;border-radius:3px;border:0px solid #000;" name="trans{{ info.id }}" value= "{{ info.trans }}" > </p>
 
 <p align="left">宽度：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="range" class = "slider" name="slidewidth{{ info.id }}" id = "slidewidth{{ info.id }}" min="0" max="5000" onchange="render_image()"></p>
 <p align="left">高度：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="range" name="slideheight{{ info.id }}" id = "slideheight{{ info.id }}" min="0" max="5000" onchange="render_image()"></p>
