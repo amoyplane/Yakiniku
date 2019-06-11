@@ -175,6 +175,7 @@ def run_quickstart(file_name, diction):
                 ifb.text = centence
                 transans = trans.ask_translation('ja', centence)
                 ifb.trans = transans
+                ifb.user = transans
                 # f.write('translation : {}\n'.format(transans))
 
                 ifb.showInfo()
