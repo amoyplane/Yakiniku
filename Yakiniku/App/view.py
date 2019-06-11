@@ -69,7 +69,8 @@ def show(request):
             info.enable = 0
         for item in eabs:
             pid = int(item)
-            infos[pid].enable = 1
+            if pid < len(infos):
+                infos[pid].enable = 1
         for info in infos:
             key = "trans" + str(info.id)
             info.trans = concat[key]

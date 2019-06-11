@@ -141,7 +141,7 @@
 <body onresize="resize()" style="background-color: #FFF0CD;overflow-y: hidden;">
 <div class = "box-block" id = "box">
     <div class = "box1" id = "imgshow" style="background-color: #FFF0CD;">
-        <div style="background-color: #FFF0CD;margin:0px 0px 0px 10px;">
+        <div style="background-color: #FFF0CD;">
         	<canvas id="canvas">
             <script>
         var loaded = false;
@@ -171,7 +171,7 @@
             if(!loaded) return;
             // 画布大小和图片尺寸不一样算好比例
             const imgWidth = img.naturalWidth, imgHeight = img.naturalHeight;
-            canvas.width = parseInt(box1.style.width);
+            canvas.width = parseInt(box1.style.width) - 18;
             canvas.height = canvas.width * imgHeight / imgWidth;
             const cWidth = canvas.width, cHeight = canvas.height;
             const zoom = {
@@ -200,7 +200,7 @@
         img.src = "result/{{ images }}";
             </script>
         </div>
-        <div style="background-color: #FFF0CD;margin:0px 0px 0px 10px;">
+        <div style="background-color: #FFF0CD;">
             <canvas id="origin">
             <script>
         var loaded1 = false;
@@ -220,7 +220,7 @@
             if(!loaded1) return;
             // 画布大小和图片尺寸不一样算好比例
             const imgWidth1 = img1.naturalWidth, imgHeight1 = img1.naturalHeight;
-            origin.width = parseInt(box1.style.width);
+            origin.width = parseInt(box1.style.width)- 18;
             origin.height = origin.width * imgHeight1 / imgWidth1;
             const cWidth1 = origin.width, cHeight1 = origin.height;
             const zoom1 = {
