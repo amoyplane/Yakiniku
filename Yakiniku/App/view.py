@@ -88,17 +88,25 @@ def show(request):
             info.vertexs = [[x1, y1], [x1, y2], [x2, y2], [x2, y1]]
 
         delt = concat.getlist('delete')
-        for item in delt:
-            pid = int(item)
-            for info in infos:
-                if info.id > pid:
-                    info.id = info.id - 1
-            del infos[pid]
+        if len(delt):
+            for item in delt:
+                pid = int(item)
+                infos[pid].delt = 1
+            ids = 0
+            newinfos = []
+            for item in infos:
+                if item.delt != 1:
+                    item.id = ids
+                    ids = ids + 1
+                    newinfos.append(item)
+            infos = newinfos
+
         if (concat['newone'] == 'yes'):
             id = len(infos)
             midx = size[0] / 2
             midy = size[1] / 2
             ifonew = ifs.Info([[5 * midx / 6, 5 * midy / 6], [7 * midx / 6, 5 * midy / 6], [7 * midx / 6, 7 * midy / 6], [5 * midx / 6, 7 * midy / 6]], 1, '', '', id, False)
+            ifonew.enable = 0
             infos.append(ifonew)
 
         request.session['infos'] = infos

@@ -13,6 +13,7 @@ class Info:
         self.id = id
         self.enable = 1
         self.bold = bold
+        self.delt = 0
 
     def showInfo(self):
         print('Info id = ', end=' ')
