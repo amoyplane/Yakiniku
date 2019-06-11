@@ -45,7 +45,21 @@ def upload(request):
             t = random.randint(1, 4)
             return render(request, 'upload.html', {'images': t, 'alert': 'true'})
 
-        diction = [['侑', '侑']]
+        #diction = [['侑', '侑']]
+        diction = []
+        concat = request.POST
+        # print(concat)
+        for i in range(0, 10):
+            key1 = "name" + str(i)
+            key2 = "trans" + str(i)
+            if concat[key1] == '':
+                continue
+            if concat[key2] == '':
+                continue
+            diction.append([concat[key1], concat[key2]])
+
+        print(diction)
+
         ret = runmain(obj.name, diction)
         for item in ret:
             item.user = item.trans
