@@ -21,12 +21,16 @@ def runmain(name):
 def upload(request):
     if request.method == 'GET':
         t = random.randint(1, 4)
-        return render(request, 'upload.html', {'images': t})
+        return render(request, 'upload.html', {'images': t, 'alert': false})
     elif request.method == 'POST':
         obj = request.FILES.get('pic')
         if obj == None:
             return render(request, 'upload.html')
-        f = open(os.path.join('upload', obj.name), 'wb')
+        try:
+            f = open(os.path.join('upload', obj.name), 'wb')
+        except OSError:
+            t = random.randint(1, 4)
+            return render(request, 'upload.html', {'images': t, 'alert': true})
         for line in obj.chunks():
             f.write(line)
         f.close()
