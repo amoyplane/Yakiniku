@@ -173,7 +173,19 @@ def run_quickstart(file_name, diction):
                 ifb.direct = gettingdir(paragraph.bounding_box.vertices)
                 # f.write('centence : {}\n'.format(centence))
                 ifb.text = centence
+                i = 0
+                for dic in diction:
+                    centence = centence.replace(dic[0], namelist1[i])
+                    i = i + 1
+                i = 0
+                for dic in diction:
+                    centence = centence.replace(namelist1[i], namelist2[i])
+                    i = i + 1
                 transans = trans.ask_translation('ja', centence)
+                i = 0
+                for dic in diction:
+                    centence = centence.replace(namelist3[i], dic[1])
+                    i = i + 1
                 ifb.trans = transans
                 ifb.user = transans
                 # f.write('translation : {}\n'.format(transans))
