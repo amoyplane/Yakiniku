@@ -29,13 +29,14 @@ def upload(request):
             t = random.randint(1, 4)
             return render(request, 'upload.html', {'images': t, 'alert': 'false'})
 
-        f = open(os.path.join('upload', obj.name), 'wb')
+        fix = random.randint(0, 99999)
+        f = open(os.path.join('upload', str(fix) + obj.name), 'wb')
         for line in obj.chunks():
             f.write(line)
         f.close()
 
         try:
-            img = Image.open(os.path.join('upload', obj.name))
+            img = Image.open(os.path.join('upload', str(fix) + obj.name))
             # print("图像格式", img.format)
         except:
             t = random.randint(1, 4)
@@ -60,12 +61,12 @@ def upload(request):
 
         print(diction)
 
-        ret = runmain(obj.name, diction)
+        ret = runmain(str(fix) + obj.name, diction)
         for item in ret:
             item.user = item.trans
 
         request.session['infos'] = ret
-        request.session['picname'] = obj.name
+        request.session['picname'] = str(fix) + obj.name
         request.session['size'] = [img.size[0], img.size[1]]
 
         return HttpResponseRedirect('show.html')
