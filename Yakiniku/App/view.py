@@ -4,6 +4,8 @@ from django.shortcuts import HttpResponse
 from django.shortcuts import HttpResponseRedirect
 import os
 import sys
+import time
+import datetime
 import random
 from PIL import Image
 from django.conf import settings
