@@ -26,11 +26,11 @@ def cleanf():
     pathdo = settings.RESULT_ROOT
     dirs = os.listdir(pathup)
     for file in dirs:
-        if (time.time() - get_FileModifyTime(file) > 8 * 60 * 60):
+        if (time.time() - os.path.getatime(file) > 8 * 60 * 60):
             os.remove(file)
     dirs = os.listdir(pathdo)
     for file in dirs:
-        if (time.time() - get_FileModifyTime(file) > 8 * 60 * 60):
+        if (time.time() - os.path.getatime(file) > 8 * 60 * 60):
             os.remove(file)
 
 
