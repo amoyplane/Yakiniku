@@ -19,7 +19,21 @@ def runmain(name, diction):
     return ret
 
 
+def cleanf():
+    pathup = settings.UPLOAD_ROOT
+    pathdo = settings.RESULT_ROOT
+    dirs = os.listdir(pathup)
+    for file in dirs:
+        if (time.time() - get_FileModifyTime(file) > 8 * 60 * 60):
+            os.remove(file)
+    dirs = os.listdir(pathdo)
+    for file in dirs:
+        if (time.time() - get_FileModifyTime(file) > 8 * 60 * 60):
+            os.remove(file)
+
+
 def upload(request):
+    cleanf()
     if request.method == 'GET':
         t = random.randint(1, 4)
         return render(request, 'upload.html', {'images': t, 'alert': 'false'})
@@ -76,6 +90,7 @@ def upload(request):
 
 
 def show(request):
+    cleanf()
     picname = request.session.get('picname')
     oriname = request.session.get('oriname')
     infos = request.session.get('infos')
