@@ -26,12 +26,12 @@ def cleanf():
     pathdo = settings.RESULT_ROOT
     dirs = os.listdir(pathup)
     for file in dirs:
-        if (time.time() - os.path.getatime(file) > 8 * 60 * 60):
-            os.remove(file)
+        if (time.time() - os.path.getatime(os.path.join('upload', file)) > 8 * 60 * 60):
+            os.remove(os.path.join('upload', file))
     dirs = os.listdir(pathdo)
     for file in dirs:
-        if (time.time() - os.path.getatime(file) > 8 * 60 * 60):
-            os.remove(file)
+        if (time.time() - os.path.getatime(os.path.join('result', file)) > 8 * 60 * 60):
+            os.remove(os.path.join('result', file))
 
 
 def upload(request):
