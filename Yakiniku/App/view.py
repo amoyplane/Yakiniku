@@ -67,6 +67,7 @@ def upload(request):
 
         request.session['infos'] = ret
         request.session['picname'] = str(fix) + obj.name
+        request.session['oriname'] = obj.name
         request.session['size'] = [img.size[0], img.size[1]]
 
         return HttpResponseRedirect('show.html')
@@ -76,11 +77,12 @@ def upload(request):
 
 def show(request):
     picname = request.session.get('picname')
+    oriname = request.session.get('oriname')
     infos = request.session.get('infos')
     size = request.session.get('size')
     print(picname)
     if request.method == 'GET':
-        return render(request, 'show.html', {'images': picname, 'infos': infos})
+        return render(request, 'show.html', {'images': picname, 'infos': infos, 'oriname': oriname})
     elif request.method == 'POST':
         concat = request.POST
         print(concat)
@@ -144,6 +146,6 @@ def show(request):
         print("renewing..")
         yaki.renew(infos, settings.UPLOAD_ROOT + '/' + picname, settings.RESULT_ROOT + '/s_' + picname, settings.RESULT_ROOT + '/' + picname)
 
-        return render(request, 'show.html', {'images': picname, 'infos': infos})
+        return render(request, 'show.html', {'images': picname, 'infos': infos, 'oriname': oriname})
         # return render(request, 'show.html')
     # return HttpResponse(picname)
