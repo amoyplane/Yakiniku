@@ -11,23 +11,24 @@ def TimeStampToTime(timestamp):
 
 def get_FileAccessTime(filePath):
     t = os.path.getatime(filePath)
-    return TimeStampToTime(t)
+    return t
 
 
 def get_FileCreateTime(filePath):
     t = os.path.getctime(filePath)
-    return TimeStampToTime(t)
+    return t
 
 
 def get_FileModifyTime(filePath):
     t = os.path.getmtime(filePath)
-    return TimeStampToTime(t)
+    return t
 
 
 print(os.getcwd())
 now = os.getcwd()
 dirs = os.listdir(now)
 for file in dirs:
+    print(file)
     print(get_FileModifyTime(file))
     print(get_FileCreateTime(file))
     print(get_FileModifyTime(file))
